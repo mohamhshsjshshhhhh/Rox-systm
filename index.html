@@ -3,38 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rox Dashboard - لوحة تحكم البوت</title>
+    <title>ROX Bot Dashboard - لوحة التحكم</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap');
         
         :root {
-            --rox-primary: #5865F2;
-            --rox-secondary: #4752C4;
-            --rox-dark: #1a1b1e;
-            --rox-darker: #111214;
-            --rox-card: #25262b;
-            --rox-border: #2f3035;
-            --rox-text: #ffffff;
-            --rox-text-muted: #a0a0a0;
-            --rox-success: #3ba55d;
-            --rox-danger: #ed4245;
-            --rox-warning: #f9a63a;
-            --rox-info: #00b0f4;
-            --rox-gradient: linear-gradient(135deg, #5865F2 0%, #9b59b6 50%, #5865F2 100%);
-            --rox-glow: 0 0 20px rgba(88, 101, 242, 0.3);
+            --primary: #5865F2;
+            --primary-dark: #4752C4;
+            --secondary: #EB459E;
+            --dark: #0a0a0f;
+            --darker: #050508;
+            --card: #111118;
+            --card-hover: #1a1a24;
+            --text: #ffffff;
+            --text-muted: #8e9297;
+            --success: #3ba55d;
+            --danger: #ed4245;
+            --warning: #f9a825;
+            --border: #2f3136;
+            --gradient-1: linear-gradient(135deg, #5865F2 0%, #EB459E 100%);
+            --gradient-2: linear-gradient(135deg, #3ba55d 0%, #5865F2 100%);
+            --glass: rgba(17, 17, 24, 0.85);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
         }
         
         body {
-            font-family: 'Cairo', 'Inter', sans-serif;
-            background: var(--rox-darker);
-            color: var(--rox-text);
+            background: var(--darker);
+            color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -49,65 +52,45 @@
             z-index: -1;
             background: 
                 radial-gradient(circle at 20% 80%, rgba(88, 101, 242, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(155, 89, 182, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(88, 101, 242, 0.1) 0%, transparent 30%);
+                radial-gradient(circle at 80% 20%, rgba(235, 69, 158, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(59, 165, 93, 0.1) 0%, transparent 40%);
+            animation: bgPulse 10s ease-in-out infinite;
         }
         
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--rox-primary);
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: float 15s infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.5; }
-            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        @keyframes bgPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
         
         /* Login Screen */
-        .login-container {
+        .login-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--rox-darker);
+            background: var(--darker);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            z-index: 10000;
             transition: opacity 0.5s, visibility 0.5s;
         }
         
-        .login-container.hidden {
+        .login-screen.hidden {
             opacity: 0;
             visibility: hidden;
         }
         
         .login-box {
-            background: var(--rox-card);
-            border: 1px solid var(--rox-border);
-            border-radius: 20px;
-            padding: 40px;
-            width: 100%;
+            background: var(--card);
+            padding: 3rem;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            width: 90%;
             max-width: 450px;
-            box-shadow: var(--rox-glow);
+            text-align: center;
+            box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
         }
@@ -119,96 +102,68 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: var(--rox-gradient);
+            background: var(--gradient-1);
         }
         
-        .logo-container {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .logo {
-            width: 80px;
-            height: 80px;
-            background: var(--rox-gradient);
-            border-radius: 20px;
+        .login-logo {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-1);
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
-            font-size: 40px;
-            box-shadow: var(--rox-glow);
-            animation: pulse 2s infinite;
+            margin: 0 auto 2rem;
+            font-size: 3rem;
+            box-shadow: 0 10px 40px rgba(88, 101, 242, 0.4);
+            animation: float 3s ease-in-out infinite;
         }
         
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         
-        .login-title {
-            font-size: 28px;
-            font-weight: 800;
-            background: var(--rox-gradient);
+        .login-box h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
         }
         
-        .login-subtitle {
-            color: var(--rox-text-muted);
-            font-size: 14px;
+        .login-box p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
         }
         
-        .input-group {
-            margin-bottom: 20px;
-        }
-        
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 14px;
-        }
-        
-        .input-wrapper {
-            position: relative;
-        }
-        
-        .input-wrapper i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--rox-text-muted);
-        }
-        
-        input[type="text"], input[type="password"] {
+        .token-input {
             width: 100%;
-            padding: 15px 15px 15px 45px;
-            background: var(--rox-darker);
-            border: 2px solid var(--rox-border);
+            padding: 1rem 1.5rem;
+            background: var(--darker);
+            border: 2px solid var(--border);
             border-radius: 12px;
-            color: var(--rox-text);
-            font-size: 14px;
-            font-family: inherit;
+            color: var(--text);
+            font-size: 1rem;
+            margin-bottom: 1rem;
             transition: all 0.3s;
+            font-family: monospace;
         }
         
-        input[type="text"]:focus, input[type="password"]:focus {
+        .token-input:focus {
             outline: none;
-            border-color: var(--rox-primary);
-            box-shadow: 0 0 0 3px rgba(88, 101, 242, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(88, 101, 242, 0.1);
         }
         
-        .btn-primary {
+        .login-btn {
             width: 100%;
-            padding: 15px;
-            background: var(--rox-gradient);
+            padding: 1rem;
+            background: var(--gradient-1);
             border: none;
             border-radius: 12px;
             color: white;
-            font-size: 16px;
+            font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
@@ -216,192 +171,208 @@
             overflow: hidden;
         }
         
-        .btn-primary:hover {
+        .login-btn:hover {
             transform: translateY(-2px);
-            box-shadow: var(--rox-glow);
+            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.4);
         }
         
-        .btn-primary::after {
+        .login-btn.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        
+        .login-btn.loading::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .btn-primary:hover::after {
-            left: 100%;
-        }
-        
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-            padding: 15px;
-            background: var(--rox-darker);
-            border-radius: 10px;
-            border: 1px solid var(--rox-border);
-        }
-        
-        .status-dot {
-            width: 10px;
-            height: 10px;
+            width: 20px;
+            height: 20px;
+            border: 3px solid transparent;
+            border-top-color: white;
             border-radius: 50%;
-            background: var(--rox-danger);
-            animation: blink 1s infinite;
+            animation: spin 1s linear infinite;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
         }
         
-        .status-dot.online {
-            background: var(--rox-success);
-            animation: none;
-            box-shadow: 0 0 10px var(--rox-success);
+        @keyframes spin {
+            to { transform: translateY(-50%) rotate(360deg); }
         }
         
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+        .error-msg {
+            color: var(--danger);
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            display: none;
         }
         
-        /* Main Dashboard */
-        .dashboard {
+        .error-msg.show {
+            display: block;
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        /* Main Layout */
+        .app-container {
             display: none;
             min-height: 100vh;
         }
         
-        .dashboard.active {
+        .app-container.active {
             display: flex;
         }
         
         /* Sidebar */
         .sidebar {
             width: 280px;
-            background: var(--rox-card);
-            border-left: 1px solid var(--rox-border);
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid var(--border);
             height: 100vh;
             position: fixed;
             right: 0;
             top: 0;
-            overflow-y: auto;
-            z-index: 100;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
             transition: transform 0.3s;
         }
         
         .sidebar-header {
-            padding: 25px;
-            border-bottom: 1px solid var(--rox-border);
+            padding: 2rem;
+            border-bottom: 1px solid var(--border);
         }
         
         .bot-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 1rem;
         }
         
         .bot-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 15px;
-            background: var(--rox-gradient);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient-1);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 1.8rem;
             position: relative;
         }
         
         .bot-avatar::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            right: 0;
+            bottom: 2px;
+            right: 2px;
             width: 14px;
             height: 14px;
-            background: var(--rox-success);
-            border: 2px solid var(--rox-card);
+            background: var(--success);
             border-radius: 50%;
+            border: 3px solid var(--card);
         }
         
         .bot-details h3 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 3px;
+            font-size: 1.2rem;
+            margin-bottom: 0.2rem;
         }
         
         .bot-details span {
-            font-size: 12px;
-            color: var(--rox-text-muted);
+            color: var(--success);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         .nav-menu {
-            padding: 20px;
+            flex: 1;
+            padding: 1.5rem 1rem;
+            overflow-y: auto;
         }
         
         .nav-section {
-            margin-bottom: 25px;
+            margin-bottom: 2rem;
         }
         
         .nav-section-title {
-            font-size: 11px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
             text-transform: uppercase;
-            color: var(--rox-text-muted);
-            font-weight: 700;
-            margin-bottom: 10px;
             letter-spacing: 1px;
+            padding: 0 1rem;
+            margin-bottom: 0.8rem;
         }
         
         .nav-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px 15px;
-            border-radius: 10px;
+            gap: 1rem;
+            padding: 0.9rem 1.2rem;
+            margin: 0.3rem 0.5rem;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s;
-            margin-bottom: 5px;
-            position: relative;
+            color: var(--text-muted);
+            text-decoration: none;
         }
         
-        .nav-item:hover {
+        .nav-item:hover, .nav-item.active {
             background: rgba(88, 101, 242, 0.1);
+            color: var(--text);
         }
         
         .nav-item.active {
-            background: var(--rox-primary);
-            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 20px rgba(88, 101, 242, 0.3);
         }
         
         .nav-item i {
-            width: 20px;
+            width: 24px;
             text-align: center;
-            font-size: 16px;
+            font-size: 1.1rem;
         }
         
-        .nav-item span {
-            font-size: 14px;
-            font-weight: 600;
+        .sidebar-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border);
         }
         
-        .nav-badge {
-            position: absolute;
-            left: 15px;
-            background: var(--rox-danger);
-            color: white;
-            font-size: 10px;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-weight: 700;
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem;
+            background: rgba(59, 165, 93, 0.1);
+            border-radius: 12px;
+            color: var(--success);
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
         
         /* Main Content */
         .main-content {
             flex: 1;
             margin-right: 280px;
-            padding: 30px;
+            padding: 2rem;
             min-height: 100vh;
         }
         
@@ -409,25 +380,24 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--rox-border);
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
         }
         
-        .page-title {
-            font-size: 28px;
-            font-weight: 800;
+        .page-title h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
         }
         
-        .page-title span {
-            background: var(--rox-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .page-title p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
         }
         
         .top-actions {
             display: flex;
-            gap: 15px;
+            gap: 1rem;
             align-items: center;
         }
         
@@ -436,75 +406,77 @@
         }
         
         .search-box input {
-            background: var(--rox-card);
-            border: 1px solid var(--rox-border);
-            border-radius: 10px;
-            padding: 10px 15px 10px 40px;
-            color: var(--rox-text);
-            width: 250px;
-            font-family: inherit;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            color: var(--text);
+            width: 300px;
+            transition: all 0.3s;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            width: 350px;
         }
         
         .search-box i {
             position: absolute;
-            left: 15px;
+            left: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--rox-text-muted);
+            color: var(--text-muted);
         }
         
         .icon-btn {
-            width: 40px;
-            height: 40px;
-            background: var(--rox-card);
-            border: 1px solid var(--rox-border);
-            border-radius: 10px;
-            color: var(--rox-text);
-            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
             transition: all 0.3s;
             position: relative;
         }
         
         .icon-btn:hover {
-            background: var(--rox-primary);
-            border-color: var(--rox-primary);
+            background: var(--card-hover);
+            border-color: var(--primary);
+            transform: translateY(-2px);
         }
         
-        .notification-dot {
+        .icon-btn .badge {
             position: absolute;
-            top: 5px;
-            right: 5px;
-            width: 8px;
-            height: 8px;
-            background: var(--rox-danger);
-            border-radius: 50%;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
         }
         
         /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
         
         .stat-card {
-            background: var(--rox-card);
-            border: 1px solid var(--rox-border);
-            border-radius: 15px;
-            padding: 25px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.5rem;
             position: relative;
             overflow: hidden;
             transition: all 0.3s;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--rox-primary);
-            box-shadow: var(--rox-glow);
         }
         
         .stat-card::before {
@@ -514,576 +486,505 @@
             right: 0;
             width: 100px;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(88, 101, 242, 0.1), transparent);
-            transform: skewX(-20deg);
+            background: linear-gradient(to left, rgba(88, 101, 242, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+        
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
         }
         
         .stat-icon {
             width: 50px;
             height: 50px;
-            border-radius: 12px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            margin-bottom: 15px;
+            font-size: 1.3rem;
         }
         
-        .stat-icon.blue { background: rgba(88, 101, 242, 0.2); color: var(--rox-primary); }
-        .stat-icon.green { background: rgba(59, 165, 93, 0.2); color: var(--rox-success); }
-        .stat-icon.orange { background: rgba(249, 166, 58, 0.2); color: var(--rox-warning); }
-        .stat-icon.red { background: rgba(237, 66, 69, 0.2); color: var(--rox-danger); }
+        .stat-icon.blue { background: rgba(88, 101, 242, 0.2); color: var(--primary); }
+        .stat-icon.green { background: rgba(59, 165, 93, 0.2); color: var(--success); }
+        .stat-icon.pink { background: rgba(235, 69, 158, 0.2); color: var(--secondary); }
+        .stat-icon.orange { background: rgba(249, 168, 37, 0.2); color: var(--warning); }
+        
+        .stat-change {
+            font-size: 0.85rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .stat-change.positive {
+            background: rgba(59, 165, 93, 0.2);
+            color: var(--success);
+        }
+        
+        .stat-change.negative {
+            background: rgba(237, 66, 69, 0.2);
+            color: var(--danger);
+        }
         
         .stat-value {
-            font-size: 32px;
+            font-size: 2.2rem;
             font-weight: 800;
-            margin-bottom: 5px;
+            margin-bottom: 0.3rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .stat-label {
-            color: var(--rox-text-muted);
-            font-size: 14px;
-        }
-        
-        .stat-change {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            margin-top: 10px;
-            padding: 5px 10px;
-            border-radius: 20px;
-            background: rgba(59, 165, 93, 0.1);
-            color: var(--rox-success);
-        }
-        
-        .stat-change.down {
-            background: rgba(237, 66, 69, 0.1);
-            color: var(--rox-danger);
+            color: var(--text-muted);
+            font-size: 0.95rem;
         }
         
         /* Content Sections */
         .content-section {
             display: none;
+            animation: fadeIn 0.5s;
         }
         
         .content-section.active {
             display: block;
-            animation: fadeIn 0.3s;
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
         /* Cards */
         .card {
-            background: var(--rox-card);
-            border: 1px solid var(--rox-border);
-            border-radius: 15px;
-            margin-bottom: 25px;
-            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
         }
         
         .card-header {
-            padding: 20px 25px;
-            border-bottom: 1px solid var(--rox-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 1.5rem;
         }
         
         .card-title {
-            font-size: 18px;
-            font-weight: 700;
+            font-size: 1.2rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.8rem;
         }
         
-        .card-body {
-            padding: 25px;
+        .card-title i {
+            color: var(--primary);
         }
         
-        /* Command Manager */
-        .command-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .command-item {
-            background: var(--rox-darker);
-            border: 1px solid var(--rox-border);
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.3s;
-            position: relative;
-        }
-        
-        .command-item:hover {
-            border-color: var(--rox-primary);
-            transform: translateX(-5px);
-        }
-        
-        .command-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .command-icon {
-            width: 45px;
-            height: 45px;
-            background: var(--rox-primary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-        }
-        
-        .command-details h4 {
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-        
-        .command-details p {
-            font-size: 13px;
-            color: var(--rox-text-muted);
-        }
-        
-        .command-alias {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background: rgba(88, 101, 242, 0.2);
-            color: var(--rox-primary);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        
-        .command-actions {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .btn-icon {
-            width: 35px;
-            height: 35px;
-            border-radius: 8px;
-            border: 1px solid var(--rox-border);
-            background: transparent;
-            color: var(--rox-text);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-        
-        .btn-icon:hover {
-            background: var(--rox-primary);
-            border-color: var(--rox-primary);
-        }
-        
-        .btn-icon.delete:hover {
-            background: var(--rox-danger);
-            border-color: var(--rox-danger);
-        }
-        
-        /* Quick Actions Grid */
-        .quick-actions {
+        /* Command Shortcuts */
+        .shortcuts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
         }
         
-        .quick-action-btn {
-            background: var(--rox-darker);
-            border: 2px solid var(--rox-border);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
+        .shortcut-item {
+            background: var(--darker);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             transition: all 0.3s;
+            cursor: pointer;
             position: relative;
             overflow: hidden;
         }
         
-        .quick-action-btn::before {
+        .shortcut-item::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--rox-gradient);
-            transform: scaleX(0);
-            transition: transform 0.3s;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
         
-        .quick-action-btn:hover {
-            border-color: var(--rox-primary);
-            transform: translateY(-3px);
+        .shortcut-item:hover {
+            background: var(--card-hover);
+            border-color: var(--primary);
+            transform: translateX(-5px);
         }
         
-        .quick-action-btn:hover::before {
-            transform: scaleX(1);
+        .shortcut-item:hover::before {
+            opacity: 1;
         }
         
-        .quick-action-btn i {
-            font-size: 28px;
-            margin-bottom: 10px;
+        .shortcut-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        
+        .shortcut-info {
+            flex: 1;
+        }
+        
+        .shortcut-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .shortcut-info p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        .shortcut-toggle {
+            width: 50px;
+            height: 26px;
+            background: var(--border);
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .shortcut-toggle.active {
+            background: var(--success);
+        }
+        
+        .shortcut-toggle::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            right: 2px;
+            transition: all 0.3s;
+        }
+        
+        .shortcut-toggle.active::after {
+            right: 26px;
+        }
+        
+        /* Command Editor */
+        .command-editor {
+            background: var(--darker);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
             display: block;
-            color: var(--rox-primary);
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
         
-        .quick-action-btn span {
-            font-size: 14px;
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(88, 101, 242, 0.1);
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 12px;
+            border: none;
+            font-size: 1rem;
             font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.4);
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
         }
         
         /* AI Chat */
         .ai-container {
             display: flex;
             flex-direction: column;
-            height: 500px;
+            height: calc(100vh - 250px);
+            background: var(--card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            overflow: hidden;
         }
         
-        .ai-chat {
+        .ai-header {
+            padding: 1.5rem;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .ai-header i {
+            font-size: 2rem;
+        }
+        
+        .ai-messages {
             flex: 1;
-            background: var(--rox-darker);
-            border-radius: 12px;
-            padding: 20px;
             overflow-y: auto;
-            margin-bottom: 15px;
-            border: 1px solid var(--rox-border);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
         
         .ai-message {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-            animation: slideIn 0.3s;
-        }
-        
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        
-        .ai-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--rox-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        
-        .ai-content {
-            background: var(--rox-card);
-            padding: 15px;
-            border-radius: 15px;
-            border-top-right-radius: 5px;
             max-width: 80%;
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            line-height: 1.6;
+            animation: messageSlide 0.3s;
         }
         
-        .ai-content.user {
-            background: var(--rox-primary);
-            border-top-right-radius: 15px;
-            border-top-left-radius: 5px;
-            margin-left: auto;
+        @keyframes messageSlide {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .ai-input-group {
+        .ai-message.user {
+            align-self: flex-end;
+            background: var(--primary);
+            border-bottom-left-radius: 4px;
+        }
+        
+        .ai-message.bot {
+            align-self: flex-start;
+            background: var(--darker);
+            border: 1px solid var(--border);
+            border-bottom-right-radius: 4px;
+        }
+        
+        .ai-input-area {
+            padding: 1.5rem;
+            background: var(--darker);
+            border-top: 1px solid var(--border);
             display: flex;
-            gap: 10px;
+            gap: 1rem;
         }
         
-        .ai-input {
+        .ai-input-area input {
             flex: 1;
-            background: var(--rox-darker);
-            border: 2px solid var(--rox-border);
+            padding: 1rem 1.5rem;
+            background: var(--card);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 15px 20px;
-            color: var(--rox-text);
-            font-family: inherit;
-            font-size: 14px;
+            color: var(--text);
+            font-size: 1rem;
         }
         
-        .ai-input:focus {
+        .ai-input-area input:focus {
             outline: none;
-            border-color: var(--rox-primary);
+            border-color: var(--primary);
         }
         
-        .ai-send {
+        .ai-input-area button {
             width: 50px;
-            background: var(--rox-gradient);
-            border: none;
+            height: 50px;
             border-radius: 12px;
+            background: var(--gradient-1);
+            border: none;
             color: white;
             cursor: pointer;
             transition: all 0.3s;
         }
         
-        .ai-send:hover {
+        .ai-input-area button:hover {
             transform: scale(1.05);
-            box-shadow: var(--rox-glow);
         }
         
-        /* Settings Form */
-        .settings-form {
+        /* Bot Settings */
+        .settings-grid {
             display: grid;
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
         }
         
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        
-        .form-group label {
-            font-weight: 600;
-            font-size: 14px;
+        .setting-item {
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: space-between;
+            padding: 1.2rem;
+            background: var(--darker);
+            border-radius: 12px;
+            margin-bottom: 1rem;
         }
         
-        .form-group input, .form-group select, .form-group textarea {
-            background: var(--rox-darker);
-            border: 2px solid var(--rox-border);
-            border-radius: 10px;
-            padding: 12px 15px;
-            color: var(--rox-text);
-            font-family: inherit;
-            font-size: 14px;
-            transition: all 0.3s;
+        .setting-info h4 {
+            margin-bottom: 0.3rem;
         }
         
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--rox-primary);
+        .setting-info p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
         }
         
-        .form-group textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-        
-        .image-preview {
+        .avatar-preview {
             width: 100px;
             height: 100px;
-            border-radius: 15px;
-            background: var(--rox-darker);
-            border: 2px dashed var(--rox-border);
+            border-radius: 50%;
+            background: var(--gradient-1);
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            overflow: hidden;
+            font-size: 2.5rem;
+            margin: 1rem 0;
             position: relative;
+            overflow: hidden;
+            cursor: pointer;
         }
         
-        .image-preview img {
+        .avatar-preview img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
         
-        .image-preview:hover {
-            border-color: var(--rox-primary);
-        }
-        
-        .image-preview i {
-            font-size: 24px;
-            color: var(--rox-text-muted);
-        }
-        
-        /* Toggle Switch */
-        .toggle-switch {
-            position: relative;
-            width: 50px;
-            height: 26px;
-            background: var(--rox-border);
-            border-radius: 13px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .toggle-switch.active {
-            background: var(--rox-success);
-        }
-        
-        .toggle-switch::after {
-            content: '';
+        .avatar-preview .overlay {
             position: absolute;
-            top: 3px;
-            right: 3px;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border-radius: 50%;
-            transition: all 0.3s;
-        }
-        
-        .toggle-switch.active::after {
-            right: 27px;
-        }
-        
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-        
-        .modal-overlay.active {
-            display: flex;
-        }
-        
-        .modal {
-            background: var(--rox-card);
-            border: 1px solid var(--rox-border);
-            border-radius: 20px;
-            width: 90%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow: hidden;
-            animation: modalIn 0.3s;
-        }
-        
-        @keyframes modalIn {
-            from { opacity: 0; transform: scale(0.9) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        
-        .modal-header {
-            padding: 25px;
-            border-bottom: 1px solid var(--rox-border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .modal-title {
-            font-size: 20px;
-            font-weight: 700;
-        }
-        
-        .modal-close {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            border: none;
-            background: var(--rox-darker);
-            color: var(--rox-text);
-            cursor: pointer;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
             display: flex;
             align-items: center;
             justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .avatar-preview:hover .overlay {
+            opacity: 1;
+        }
+        
+        /* Logs */
+        .logs-container {
+            background: var(--darker);
+            border-radius: 16px;
+            padding: 1rem;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .log-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             transition: all 0.3s;
         }
         
-        .modal-close:hover {
-            background: var(--rox-danger);
+        .log-item:hover {
+            background: var(--card);
+            border-radius: 8px;
         }
         
-        .modal-body {
-            padding: 25px;
-        }
-        
-        .modal-footer {
-            padding: 20px 25px;
-            border-top: 1px solid var(--rox-border);
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
-        
-        .btn-secondary {
-            padding: 12px 25px;
-            background: var(--rox-darker);
-            border: 1px solid var(--rox-border);
+        .log-icon {
+            width: 40px;
+            height: 40px;
             border-radius: 10px;
-            color: var(--rox-text);
-            cursor: pointer;
-            font-family: inherit;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        
-        .btn-secondary:hover {
-            background: var(--rox-border);
-        }
-        
-        /* Toast Notifications */
-        .toast-container {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .toast {
-            background: var(--rox-card);
-            border: 1px solid var(--rox-border);
-            border-radius: 12px;
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: toastIn 0.3s;
-            min-width: 300px;
-        }
-        
-        @keyframes toastIn {
-            from { opacity: 0; transform: translateX(-100%); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        
-        .toast.success { border-right: 4px solid var(--rox-success); }
-        .toast.error { border-right: 4px solid var(--rox-danger); }
-        .toast.info { border-right: 4px solid var(--rox-info); }
-        
-        .toast-icon {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1rem;
         }
         
-        .toast.success .toast-icon { background: rgba(59, 165, 93, 0.2); color: var(--rox-success); }
-        .toast.error .toast-icon { background: rgba(237, 66, 69, 0.2); color: var(--rox-danger); }
-        .toast.info .toast-icon { background: rgba(0, 176, 244, 0.2); color: var(--rox-info); }
+        .log-icon.success { background: rgba(59, 165, 93, 0.2); color: var(--success); }
+        .log-icon.error { background: rgba(237, 66, 69, 0.2); color: var(--danger); }
+        .log-icon.info { background: rgba(88, 101, 242, 0.2); color: var(--primary); }
+        
+        .log-content {
+            flex: 1;
+        }
+        
+        .log-content h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .log-content p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        .log-time {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
         
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .sidebar {
                 transform: translateX(100%);
             }
@@ -1096,224 +997,285 @@
                 margin-right: 0;
             }
             
+            .menu-toggle {
+                display: flex !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
             .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-box input {
+                width: 200px;
+            }
+            
+            .search-box input:focus {
+                width: 220px;
+            }
+            
+            .shortcuts-grid {
                 grid-template-columns: 1fr;
             }
         }
         
-        /* Loading Animation */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* Three Dots Menu */
-        .menu-dots {
-            position: relative;
-        }
-        
-        .dots-btn {
-            width: 35px;
-            height: 35px;
-            background: transparent;
-            border: none;
-            color: var(--rox-text-muted);
-            cursor: pointer;
-            font-size: 18px;
-            display: flex;
+        .menu-toggle {
+            display: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            margin-left: 1rem;
         }
         
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: var(--rox-card);
-            border: 1px solid var(--rox-border);
-            border-radius: 10px;
-            min-width: 180px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            display: none;
-            z-index: 100;
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
         
-        .dropdown-menu.show {
-            display: block;
-            animation: fadeIn 0.2s;
-        }
-        
-        .dropdown-item {
-            padding: 12px 15px;
+        .toast {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 1rem;
+            box-shadow: var(--shadow);
+            animation: toastSlide 0.3s;
+            min-width: 300px;
+        }
+        
+        @keyframes toastSlide {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .toast.success { border-right: 4px solid var(--success); }
+        .toast.error { border-right: 4px solid var(--danger); }
+        .toast.info { border-right: 4px solid var(--primary); }
+        
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 10, 15, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+        }
+        
+        .loading-overlay.active {
+            display: flex;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        /* Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            animation: modalPop 0.3s;
+        }
+        
+        @keyframes modalPop {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-header h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .close-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--darker);
+            border: 1px solid var(--border);
+            color: var(--text);
             cursor: pointer;
-            transition: all 0.2s;
-            font-size: 14px;
+            transition: all 0.3s;
         }
         
-        .dropdown-item:hover {
-            background: var(--rox-darker);
+        .close-btn:hover {
+            background: var(--danger);
+            border-color: var(--danger);
         }
         
-        .dropdown-item:first-child {
-            border-radius: 10px 10px 0 0;
+        /* Command Tags */
+        .command-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
         }
         
-        .dropdown-item:last-child {
-            border-radius: 0 0 10px 10px;
+        .tag {
+            padding: 0.3rem 0.8rem;
+            background: rgba(88, 101, 242, 0.2);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
         
-        .dropdown-item.delete {
-            color: var(--rox-danger);
+        .tag.admin { background: rgba(237, 66, 69, 0.2); color: var(--danger); }
+        .tag.mod { background: rgba(249, 168, 37, 0.2); color: var(--warning); }
+        .tag.fun { background: rgba(235, 69, 158, 0.2); color: var(--secondary); }
+        
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .quick-btn {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text);
+        }
+        
+        .quick-btn:hover {
+            background: var(--card-hover);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .quick-btn i {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            display: block;
+            color: var(--primary);
+        }
+        
+        .quick-btn span {
+            font-size: 0.9rem;
+            font-weight: 600;
         }
         
         /* Embed Builder Preview */
         .embed-preview {
             background: #2f3136;
-            border-radius: 8px;
-            border-left: 4px solid var(--rox-primary);
-            padding: 15px;
-            margin-top: 15px;
+            border-radius: 4px;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin-top: 1rem;
         }
         
-        .embed-author {
+        .embed-preview .author {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-            font-size: 14px;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
             color: #ffffff;
         }
         
-        .embed-title {
-            font-size: 16px;
+        .embed-preview .title {
             font-weight: 700;
+            margin-bottom: 0.5rem;
             color: #ffffff;
-            margin-bottom: 10px;
         }
         
-        .embed-description {
-            font-size: 14px;
+        .embed-preview .description {
             color: #dcddde;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            line-height: 1.4;
         }
         
-        .embed-footer {
-            margin-top: 10px;
-            font-size: 12px;
+        .embed-preview .footer {
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
             color: #72767d;
-        }
-        
-        /* Terminal/Console */
-        .console {
-            background: #0d0d0d;
-            border-radius: 12px;
-            padding: 20px;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            color: #00ff00;
-            height: 300px;
-            overflow-y: auto;
-            border: 1px solid var(--rox-border);
-        }
-        
-        .console-line {
-            margin-bottom: 8px;
-            display: flex;
-            gap: 10px;
-        }
-        
-        .console-time {
-            color: #666;
-        }
-        
-        .console-info { color: #00b0f4; }
-        .console-success { color: #3ba55d; }
-        .console-error { color: #ed4245; }
-        .console-warn { color: #f9a63a; }
-        
-        /* Bot Status Indicator */
-        .connection-status {
-            position: fixed;
-            bottom: 20px;
-            right: 300px;
-            background: var(--rox-card);
-            border: 1px solid var(--rox-border);
-            border-radius: 50px;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 99;
-        }
-        
-        .connection-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--rox-success);
-            box-shadow: 0 0 10px var(--rox-success);
-            animation: pulse 2s infinite;
-        }
-        
-        .connection-dot.disconnected {
-            background: var(--rox-danger);
-            box-shadow: 0 0 10px var(--rox-danger);
         }
     </style>
 </head>
 <body>
-    <!-- Background Animation -->
     <div class="bg-animation"></div>
-    <div class="particles" id="particles"></div>
     
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
     
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+    
     <!-- Login Screen -->
-    <div class="login-container" id="loginScreen">
+    <div class="login-screen" id="loginScreen">
         <div class="login-box">
-            <div class="logo-container">
-                <div class="logo">
-                    <i class="fas fa-robot"></i>
-                </div>
-                <h1 class="login-title">Rox Dashboard</h1>
-                <p class="login-subtitle">لوحة تحكم بوت الديسكورد المتكاملة</p>
+            <div class="login-logo">
+                <i class="fas fa-robot"></i>
             </div>
-            
-            <div class="input-group">
-                <label>توكن البوت (Bot Token)</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-key"></i>
-                    <input type="password" id="botToken" placeholder="ضع توكن البوت هنا...">
-                </div>
-            </div>
-            
-            <button class="btn-primary" onclick="connectBot()">
-                <span id="connectText">ربط البوت</span>
-                <span class="loading" id="connectLoader" style="display: none;"></span>
+            <h1>ROX Dashboard</h1>
+            <p>أدخل توكن البوت للتحكم الكامل</p>
+            <input type="password" class="token-input" id="botToken" placeholder="Discord Bot Token...">
+            <button class="login-btn" id="loginBtn" onclick="login()">
+                <span>تسجيل الدخول</span>
             </button>
-            
-            <div class="status-indicator" id="statusIndicator">
-                <div class="status-dot" id="statusDot"></div>
-                <span id="statusText">غير متصل</span>
-            </div>
+            <div class="error-msg" id="loginError">التوكن غير صالح!</div>
         </div>
     </div>
     
-    <!-- Main Dashboard -->
-    <div class="dashboard" id="dashboard">
+    <!-- Main App -->
+    <div class="app-container" id="appContainer">
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
@@ -1322,8 +1284,11 @@
                         <i class="fas fa-robot"></i>
                     </div>
                     <div class="bot-details">
-                        <h3 id="botName">Rox Bot</h3>
-                        <span id="botId">ID: Loading...</span>
+                        <h3 id="botName">ROX Bot</h3>
+                        <span>
+                            <span class="status-dot"></span>
+                            متصل
+                        </span>
                     </div>
                 </div>
             </div>
@@ -1331,169 +1296,158 @@
             <nav class="nav-menu">
                 <div class="nav-section">
                     <div class="nav-section-title">الرئيسية</div>
-                    <div class="nav-item active" onclick="showSection('overview')">
+                    <a class="nav-item active" onclick="showSection('dashboard')">
                         <i class="fas fa-home"></i>
-                        <span>نظرة عامة</span>
-                    </div>
-                    <div class="nav-item" onclick="showSection('commands')">
+                        <span>لوحة التحكم</span>
+                    </a>
+                    <a class="nav-item" onclick="showSection('commands')">
                         <i class="fas fa-terminal"></i>
                         <span>الأوامر</span>
-                        <span class="nav-badge" id="commandsBadge">24</span>
-                    </div>
-                    <div class="nav-item" onclick="showSection('shortcuts')">
+                    </a>
+                    <a class="nav-item" onclick="showSection('shortcuts')">
                         <i class="fas fa-bolt"></i>
                         <span>الاختصارات</span>
-                    </div>
+                    </a>
                 </div>
                 
                 <div class="nav-section">
                     <div class="nav-section-title">التحكم</div>
-                    <div class="nav-item" onclick="showSection('embeds')">
+                    <a class="nav-item" onclick="showSection('embeds')">
                         <i class="fas fa-layer-group"></i>
                         <span>الإيمبدات</span>
-                    </div>
-                    <div class="nav-item" onclick="showSection('logs')">
+                    </a>
+                    <a class="nav-item" onclick="showSection('settings')">
+                        <i class="fas fa-cog"></i>
+                        <span>إعدادات البوت</span>
+                    </a>
+                    <a class="nav-item" onclick="showSection('logs')">
                         <i class="fas fa-history"></i>
                         <span>السجلات</span>
-                    </div>
-                    <div class="nav-item" onclick="showSection('settings')">
-                        <i class="fas fa-cog"></i>
-                        <span>الإعدادات</span>
-                    </div>
+                    </a>
                 </div>
                 
                 <div class="nav-section">
-                    <div class="nav-section-title">المساعدة</div>
-                    <div class="nav-item" onclick="showSection('ai')">
+                    <div class="nav-section-title">متقدم</div>
+                    <a class="nav-item" onclick="showSection('ai')">
                         <i class="fas fa-brain"></i>
-                        <span>مساعد AI</span>
-                        <span class="nav-badge" style="background: var(--rox-primary);">جديد</span>
-                    </div>
-                    <div class="nav-item" onclick="showSection('docs')">
-                        <i class="fas fa-book"></i>
-                        <span>التوثيق</span>
-                    </div>
+                        <span>AI المساعد</span>
+                    </a>
                 </div>
             </nav>
+            
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span>البوت يعمل بنجاح</span>
+                </div>
+            </div>
         </aside>
         
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Top Bar -->
             <div class="top-bar">
-                <h1 class="page-title" id="pageTitle">نظرة <span>عامة</span></h1>
+                <div class="page-title">
+                    <h1 id="pageTitle">لوحة التحكم</h1>
+                    <p id="pageDesc">نظرة عامة على أداء البوت</p>
+                </div>
                 <div class="top-actions">
                     <div class="search-box">
                         <i class="fas fa-search"></i>
-                        <input type="text" placeholder="البحث في الأوامر..." id="searchInput" onkeyup="searchCommands()">
+                        <input type="text" placeholder="بحث..." id="searchInput" onkeyup="searchCommands()">
                     </div>
-                    <button class="icon-btn" onclick="toggleNotifications()">
-                        <i class="fas fa-bell"></i>
-                        <span class="notification-dot"></span>
+                    <button class="icon-btn" onclick="refreshData()" title="تحديث">
+                        <i class="fas fa-sync-alt"></i>
                     </button>
-                    <button class="icon-btn" onclick="toggleTheme()">
-                        <i class="fas fa-moon"></i>
+                    <button class="icon-btn" onclick="showNotifications()" title="الإشعارات">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge" id="notifBadge">3</span>
+                    </button>
+                    <button class="menu-toggle" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
                     </button>
                 </div>
             </div>
             
-            <!-- Overview Section -->
-            <div class="content-section active" id="overview">
+            <!-- Dashboard Section -->
+            <div class="content-section active" id="dashboard">
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-icon blue"><i class="fas fa-server"></i></div>
+                        <div class="stat-header">
+                            <div class="stat-icon blue">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <span class="stat-change positive">+12%</span>
+                        </div>
                         <div class="stat-value" id="guildsCount">0</div>
                         <div class="stat-label">السيرفرات</div>
-                        <div class="stat-change">
-                            <i class="fas fa-arrow-up"></i>
-                            <span>+12% هذا الشهر</span>
-                        </div>
                     </div>
+                    
                     <div class="stat-card">
-                        <div class="stat-icon green"><i class="fas fa-users"></i></div>
+                        <div class="stat-header">
+                            <div class="stat-icon green">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <span class="stat-change positive">+5%</span>
+                        </div>
                         <div class="stat-value" id="usersCount">0</div>
                         <div class="stat-label">المستخدمين</div>
-                        <div class="stat-change">
-                            <i class="fas fa-arrow-up"></i>
-                            <span>+5% هذا الأسبوع</span>
-                        </div>
                     </div>
+                    
                     <div class="stat-card">
-                        <div class="stat-icon orange"><i class="fas fa-terminal"></i></div>
-                        <div class="stat-value" id="commandsUsed">0</div>
+                        <div class="stat-header">
+                            <div class="stat-icon pink">
+                                <i class="fas fa-terminal"></i>
+                            </div>
+                            <span class="stat-change positive">+8%</span>
+                        </div>
+                        <div class="stat-value" id="commandsCount">85</div>
                         <div class="stat-label">الأوامر المنفذة</div>
-                        <div class="stat-change">
-                            <i class="fas fa-arrow-up"></i>
-                            <span>+23% اليوم</span>
-                        </div>
                     </div>
+                    
                     <div class="stat-card">
-                        <div class="stat-icon red"><i class="fas fa-clock"></i></div>
-                        <div class="stat-value" id="uptime">00:00</div>
+                        <div class="stat-header">
+                            <div class="stat-icon orange">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <span class="stat-change positive">99.9%</span>
+                        </div>
+                        <div class="stat-value" id="uptime">0d</div>
                         <div class="stat-label">وقت التشغيل</div>
-                        <div class="stat-change down">
-                            <i class="fas fa-check"></i>
-                            <span>يعمل بكفاءة</span>
-                        </div>
+                    </div>
+                </div>
+                
+                <div class="quick-actions">
+                    <div class="quick-btn" onclick="showSection('commands')">
+                        <i class="fas fa-plus"></i>
+                        <span>أمر جديد</span>
+                    </div>
+                    <div class="quick-btn" onclick="broadcastMessage()">
+                        <i class="fas fa-broadcast-tower"></i>
+                        <span>إذاعة</span>
+                    </div>
+                    <div class="quick-btn" onclick="showSection('embeds')">
+                        <i class="fas fa-palette"></i>
+                        <span>تصميم إيمبد</span>
+                    </div>
+                    <div class="quick-btn" onclick="restartBot()">
+                        <i class="fas fa-redo"></i>
+                        <span>إعادة تشغيل</span>
                     </div>
                 </div>
                 
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-bolt"></i> إجراءات سريعة</h3>
+                        <h3 class="card-title">
+                            <i class="fas fa-bolt"></i>
+                            اختصارات سريعة
+                        </h3>
+                        <button class="btn btn-primary" onclick="showSection('shortcuts')">
+                            <i class="fas fa-cog"></i>
+                            إدارة
+                        </button>
                     </div>
-                    <div class="card-body">
-                        <div class="quick-actions">
-                            <div class="quick-action-btn" onclick="quickAction('restart')">
-                                <i class="fas fa-redo"></i>
-                                <span>إعادة تشغيل</span>
-                            </div>
-                            <div class="quick-action-btn" onclick="quickAction('broadcast')">
-                                <i class="fas fa-broadcast-tower"></i>
-                                <span>إذاعة للكل</span>
-                            </div>
-                            <div class="quick-action-btn" onclick="quickAction('status')">
-                                <i class="fas fa-gamepad"></i>
-                                <span>تغيير الحالة</span>
-                            </div>
-                            <div class="quick-action-btn" onclick="quickAction('clear')">
-                                <i class="fas fa-broom"></i>
-                                <span>مسح الكاش</span>
-                            </div>
-                            <div class="quick-action-btn" onclick="quickAction('backup')">
-                                <i class="fas fa-database"></i>
-                                <span>نسخ احتياطي</span>
-                            </div>
-                            <div class="quick-action-btn" onclick="quickAction('update')">
-                                <i class="fas fa-sync"></i>
-                                <span>تحديث البوت</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-terminal"></i> سجل الأوامر الأخيرة</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="console" id="console">
-                            <div class="console-line">
-                                <span class="console-time">[10:45:23]</span>
-                                <span class="console-info">[INFO]</span>
-                                <span>Bot started successfully</span>
-                            </div>
-                            <div class="console-line">
-                                <span class="console-time">[10:45:25]</span>
-                                <span class="console-success">[SUCCESS]</span>
-                                <span>Connected to Discord API</span>
-                            </div>
-                            <div class="console-line">
-                                <span class="console-time">[10:46:12]</span>
-                                <span class="console-info">[COMMAND]</span>
-                                <span>/top used by User#1234</span>
-                            </div>
-                        </div>
+                    <div class="shortcuts-grid" id="dashboardShortcuts">
+                        <!-- Generated by JS -->
                     </div>
                 </div>
             </div>
@@ -1502,15 +1456,17 @@
             <div class="content-section" id="commands">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-list"></i> قائمة الأوامر</h3>
-                        <button class="btn-primary" style="width: auto; padding: 10px 20px;" onclick="openAddCommandModal()">
-                            <i class="fas fa-plus"></i> أمر جديد
+                        <h3 class="card-title">
+                            <i class="fas fa-terminal"></i>
+                            إدارة الأوامر
+                        </h3>
+                        <button class="btn btn-primary" onclick="openAddCommandModal()">
+                            <i class="fas fa-plus"></i>
+                            أمر جديد
                         </button>
                     </div>
-                    <div class="card-body">
-                        <div class="command-list" id="commandList">
-                            <!-- Commands will be populated by JS -->
-                        </div>
+                    <div class="shortcuts-grid" id="commandsList">
+                        <!-- Generated by JS -->
                     </div>
                 </div>
             </div>
@@ -1519,64 +1475,149 @@
             <div class="content-section" id="shortcuts">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-keyboard"></i> اختصارات الأوامر</h3>
+                        <h3 class="card-title">
+                            <i class="fas fa-bolt"></i>
+                            الاختصارات المخصصة
+                        </h3>
+                        <span>اضغط على أي أمر لتفعيل/تعطيل الاختصار</span>
                     </div>
-                    <div class="card-body">
-                        <div class="settings-form">
-                            <div class="form-group">
-                                <label>نظام الاختصارات</label>
-                                <div style="display: flex; gap: 20px; flex-wrap: wrap;" id="shortcutsContainer">
-                                    <!-- Shortcuts will be populated by JS -->
-                                </div>
-                            </div>
-                        </div>
+                    <div class="shortcuts-grid" id="shortcutsList">
+                        <!-- Generated by JS -->
                     </div>
                 </div>
             </div>
             
             <!-- Embeds Section -->
             <div class="content-section" id="embeds">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-paint-brush"></i> مصمم الإيمبدات</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="settings-form">
+                <div class="settings-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-edit"></i>
+                                تصميم الإيمبد
+                            </h3>
+                        </div>
+                        <div class="command-editor">
                             <div class="form-group">
-                                <label>عنوان الإيمبد</label>
-                                <input type="text" id="embedTitle" placeholder="أدخل العنوان..." oninput="updateEmbedPreview()">
+                                <label>العنوان</label>
+                                <input type="text" id="embedTitle" placeholder="عنوان الإيمبد..." oninput="updateEmbedPreview()">
                             </div>
                             <div class="form-group">
                                 <label>الوصف</label>
-                                <textarea id="embedDescription" placeholder="أدخل الوصف..." oninput="updateEmbedPreview()"></textarea>
+                                <textarea id="embedDesc" placeholder="محتوى الإيمبد..." oninput="updateEmbedPreview()"></textarea>
                             </div>
                             <div class="form-group">
-                                <label>اللون (HEX)</label>
-                                <input type="text" id="embedColor" placeholder="#5865F2" value="#5865F2" oninput="updateEmbedPreview()">
+                                <label>اللون</label>
+                                <input type="color" id="embedColor" value="#5865F2" onchange="updateEmbedPreview()" style="height: 50px; cursor: pointer;">
                             </div>
                             <div class="form-group">
-                                <label>الصورة المصغرة (URL)</label>
+                                <label>الصورة المصغرة</label>
                                 <input type="text" id="embedThumbnail" placeholder="رابط الصورة..." oninput="updateEmbedPreview()">
                             </div>
                             <div class="form-group">
-                                <label>الصورة الكبيرة (URL)</label>
+                                <label>الصورة الكبيرة</label>
                                 <input type="text" id="embedImage" placeholder="رابط الصورة..." oninput="updateEmbedPreview()">
                             </div>
-                            
-                            <div class="embed-preview" id="embedPreview">
-                                <div class="embed-author">
-                                    <i class="fas fa-robot"></i>
-                                    <span>Rox Bot</span>
-                                </div>
-                                <div class="embed-title" id="previewTitle">عنوان الإيمبد</div>
-                                <div class="embed-description" id="previewDescription">هذا نص الوصف سيظهر هنا...</div>
-                                <div class="embed-footer">Today at 10:45 AM</div>
-                            </div>
-                            
-                            <button class="btn-primary" onclick="saveEmbedTemplate()" style="margin-top: 20px;">
-                                <i class="fas fa-save"></i> حفظ القالب
+                            <button class="btn btn-primary" onclick="sendEmbed()">
+                                <i class="fas fa-paper-plane"></i>
+                                إرسال الإيمبد
                             </button>
                         </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-eye"></i>
+                                معاينة
+                            </h3>
+                        </div>
+                        <div class="embed-preview" id="embedPreview">
+                            <div class="author">
+                                <i class="fas fa-robot"></i>
+                                <span>ROX Bot</span>
+                            </div>
+                            <div class="title">عنوان الإيمبد</div>
+                            <div class="description">هذا نص تجريبي للإيمبد...</div>
+                            <div class="footer">Today at 12:00 PM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Settings Section -->
+            <div class="content-section" id="settings">
+                <div class="settings-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-user-circle"></i>
+                                معلومات البوت
+                            </h3>
+                        </div>
+                        <div style="text-align: center; padding: 2rem;">
+                            <div class="avatar-preview" onclick="changeAvatar()">
+                                <i class="fas fa-robot" id="settingsAvatar"></i>
+                                <div class="overlay">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                            </div>
+                            <div class="form-group" style="text-align: right; margin-top: 1.5rem;">
+                                <label>اسم البوت</label>
+                                <input type="text" id="botNameInput" value="ROX Bot">
+                            </div>
+                            <button class="btn btn-primary" onclick="saveBotInfo()" style="margin-top: 1rem;">
+                                <i class="fas fa-save"></i>
+                                حفظ التغييرات
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-shield-alt"></i>
+                                الإعدادات الأمنية
+                            </h3>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h4>وضع الصيانة</h4>
+                                <p>تعطيل جميع الأوامر مؤقتاً</p>
+                            </div>
+                            <div class="shortcut-toggle" id="maintenanceToggle" onclick="toggleSetting(this)"></div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h4>تسجيل الأوامر</h4>
+                                <p>تسجيل جميع الأوامر المستخدمة</p>
+                            </div>
+                            <div class="shortcut-toggle active" id="loggingToggle" onclick="toggleSetting(this)"></div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h4>الردود التلقائية</h4>
+                                <p>تفعيل الردود الذكية</p>
+                            </div>
+                            <div class="shortcut-toggle active" id="autoReplyToggle" onclick="toggleSetting(this)"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                منطقة الخطر
+                            </h3>
+                        </div>
+                        <button class="btn btn-danger" onclick="clearAllData()" style="width: 100%; margin-bottom: 1rem;">
+                            <i class="fas fa-trash"></i>
+                            مسح جميع البيانات
+                        </button>
+                        <button class="btn btn-danger" onclick="logout()" style="width: 100%;">
+                            <i class="fas fa-sign-out-alt"></i>
+                            تسجيل الخروج
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1585,680 +1626,594 @@
             <div class="content-section" id="logs">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-file-alt"></i> سجلات النظام</h3>
-                        <button class="btn-secondary" onclick="clearLogs()">
-                            <i class="fas fa-trash"></i> مسح السجلات
+                        <h3 class="card-title">
+                            <i class="fas fa-history"></i>
+                            سجل الأحداث
+                        </h3>
+                        <button class="btn btn-danger" onclick="clearLogs()">
+                            <i class="fas fa-trash"></i>
+                            مسح السجل
                         </button>
                     </div>
-                    <div class="card-body">
-                        <div class="console" id="systemLogs" style="height: 400px;">
-                            <!-- Logs populated by JS -->
-                        </div>
+                    <div class="logs-container" id="logsContainer">
+                        <!-- Generated by JS -->
                     </div>
                 </div>
             </div>
             
-            <!-- Settings Section -->
-            <div class="content-section" id="settings">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-user-cog"></i> إعدادات البوت</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="settings-form">
-                            <div class="form-group">
-                                <label>اسم البوت</label>
-                                <input type="text" id="botNameInput" placeholder="Rox Bot">
-                            </div>
-                            <div class="form-group">
-                                <label>الصورة الرمزية (Avatar)</label>
-                                <div class="image-preview" onclick="document.getElementById('avatarInput').click()">
-                                    <img id="avatarPreview" style="display: none;">
-                                    <i class="fas fa-camera" id="avatarIcon"></i>
-                                </div>
-                                <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="previewAvatar()">
-                            </div>
-                            <div class="form-group">
-                                <label>حالة البوت</label>
-                                <select id="botStatus">
-                                    <option value="online">متصل 🟢</option>
-                                    <option value="idle">خامل 🟡</option>
-                                    <option value="dnd">عدم الإزعاج 🔴</option>
-                                    <option value="invisible">غير مرئي ⚫</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>نشاط البوت</label>
-                                <div style="display: flex; gap: 10px;">
-                                    <select id="activityType" style="flex: 1;">
-                                        <option value="PLAYING">يلعب</option>
-                                        <option value="LISTENING">يستمع إلى</option>
-                                        <option value="WATCHING">يشاهد</option>
-                                        <option value="STREAMING">يبث مباشر</option>
-                                        <option value="COMPETING">يتنافس في</option>
-                                    </select>
-                                    <input type="text" id="activityText" placeholder="by 0rox" style="flex: 2;">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>البادئة (Prefix)</label>
-                                <input type="text" id="botPrefix" placeholder="/">
-                            </div>
-                            
-                            <button class="btn-primary" onclick="saveBotSettings()">
-                                <i class="fas fa-save"></i> حفظ الإعدادات
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- AI Assistant Section -->
+            <!-- AI Section -->
             <div class="content-section" id="ai">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-robot"></i> مساعد Rox الذكي</h3>
-                        <span style="color: var(--rox-text-muted); font-size: 14px;">مدعوم بـ OpenAI GPT-4</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="ai-container">
-                            <div class="ai-chat" id="aiChat">
-                                <div class="ai-message">
-                                    <div class="ai-avatar">
-                                        <i class="fas fa-robot"></i>
-                                    </div>
-                                    <div class="ai-content">
-                                        <strong>مرحباً! 👋</strong><br>
-                                        أنا مساعد Rox الذكي. يمكنني مساعدتك في:
-                                        <ul style="margin-top: 10px; padding-right: 20px;">
-                                            <li>إنشاء أوامر جديدة للبوت</li>
-                                            <li>تعديل الإعدادات</li>
-                                            <li>حل المشاكل التقنية</li>
-                                            <li>شرح ميزات البوت</li>
-                                        </ul>
-                                        كيف يمكنني مساعدتك اليوم؟
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="ai-input-group">
-                                <input type="text" class="ai-input" id="aiInput" placeholder="اكتب رسالتك هنا..." onkeypress="if(event.key==='Enter')sendAI()">
-                                <button class="ai-send" onclick="sendAI()">
-                                    <i class="fas fa-paper-plane"></i>
-                                </button>
-                            </div>
+                <div class="ai-container">
+                    <div class="ai-header">
+                        <i class="fas fa-robot"></i>
+                        <div>
+                            <h3>ROX AI Assistant</h3>
+                            <p>اسألني عن أي شيء يخص البوت</p>
                         </div>
                     </div>
-                </div>
-            </div>
-            
-            <!-- Docs Section -->
-            <div class="content-section" id="docs">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-book"></i> التوثيق</h3>
-                    </div>
-                    <div class="card-body">
-                        <div style="line-height: 2;">
-                            <h4 style="margin-bottom: 15px; color: var(--rox-primary);">📁 هيكل الملفات:</h4>
-                            <pre style="background: var(--rox-darker); padding: 20px; border-radius: 10px; overflow-x: auto; font-family: monospace;">
-bot/
-├── index.js          ← البوت الرئيسي
-├── config.js         ← ملف الإعدادات
-├── commands/         ← مجلد الأوامر
-│   ├── moderation/
-│   ├── general/
-│   └── admin/
-├── events/           ← مجلد الأحداث
-├── handlers/         ← معالجات البوت
-└── dashboard/        ← ملفات الداشبورد
-    ├── index.html
-    ├── style.css
-    └── app.js</pre>
-                            
-                            <h4 style="margin: 25px 0 15px; color: var(--rox-primary);">🔌 ربط الداشبورد مع البوت:</h4>
-                            <ol style="padding-right: 20px;">
-                                <li>أضف الكود التالي في <code>index.js</code>:</li>
-                            </ol>
-                            <pre style="background: var(--rox-darker); padding: 20px; border-radius: 10px; overflow-x: auto; font-family: monospace; margin-top: 10px;">
-// في نهاية ملف index.js
-const express = require('express');
-const app = express();
-const cors = require('cors');
-
-app.use(cors());
-app.use(express.json());
-
-// API للداشبورد
-app.get('/api/stats', (req, res) => {
-    res.json({
-        guilds: client.guilds.cache.size,
-        users: client.users.cache.size,
-        commands: client.commands.size,
-        uptime: client.uptime
-    });
-});
-
-app.post('/api/command', (req, res) => {
-    // تنفيذ الأوامر من الداشبورد
-    const { command, args } = req.body;
-    // ... منطق التنفيذ
-});
-
-app.listen(3000, () => {
-    console.log('Dashboard API running on port 3000');
-});</pre>
+                    <div class="ai-messages" id="aiMessages">
+                        <div class="ai-message bot">
+                            مرحباً! أنا مساعد ROX الذكي. يمكنني مساعدتك في:
+                            <br>• إنشاء أوامر جديدة
+                            <br>• تصميم إيمبدات احترافية
+                            <br>• حل مشاكل البوت
+                            <br>• شرح كيفية استخدام الميزات
+                            <br><br>كيف يمكنني مساعدتك اليوم؟
                         </div>
+                    </div>
+                    <div class="ai-input-area">
+                        <input type="text" id="aiInput" placeholder="اكتب رسالتك هنا..." onkeypress="handleAIKey(event)">
+                        <button onclick="sendAIMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
                     </div>
                 </div>
             </div>
         </main>
-        
-        <!-- Connection Status -->
-        <div class="connection-status">
-            <div class="connection-dot" id="connDot"></div>
-            <span id="connText">متصل بالبوت</span>
-        </div>
     </div>
     
-    <!-- Modals -->
-    <div class="modal-overlay" id="commandModal">
-        <div class="modal">
+    <!-- Add Command Modal -->
+    <div class="modal" id="addCommandModal">
+        <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">إضافة/تعديل أمر</h3>
-                <button class="modal-close" onclick="closeModal('commandModal')">
+                <h2><i class="fas fa-plus-circle"></i> أمر جديد</h2>
+                <button class="close-btn" onclick="closeModal()">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="settings-form">
-                    <div class="form-group">
-                        <label>اسم الأمر</label>
-                        <input type="text" id="cmdName" placeholder="مثال: ban">
-                    </div>
-                    <div class="form-group">
-                        <label>الوصف</label>
-                        <input type="text" id="cmdDesc" placeholder="وصف مختصر للأمر...">
-                    </div>
-                    <div class="form-group">
-                        <label>الاختصار</label>
-                        <input type="text" id="cmdAlias" placeholder="مثال: b">
-                    </div>
-                    <div class="form-group">
-                        <label>الفئة</label>
-                        <select id="cmdCategory">
-                            <option value="admin">إدارية</option>
-                            <option value="mod">إشرافية</option>
-                            <option value="general">عامة</option>
-                            <option value="fun">ترفيهية</option>
-                        </select>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label>اسم الأمر</label>
+                <input type="text" id="newCmdName" placeholder="مثال: ban, kick, mute...">
             </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" onclick="closeModal('commandModal')">إلغاء</button>
-                <button class="btn-primary" onclick="saveCommand()">حفظ</button>
+            <div class="form-group">
+                <label>الوصف</label>
+                <input type="text" id="newCmdDesc" placeholder="وظيفة الأمر...">
             </div>
+            <div class="form-group">
+                <label>الاختصار</label>
+                <input type="text" id="newCmdShortcut" placeholder="مثال: /b, !ban...">
+            </div>
+            <div class="form-group">
+                <label>الصلاحيات</label>
+                <select id="newCmdPerms">
+                    <option value="everyone">الجميع</option>
+                    <option value="mod">مشرف</option>
+                    <option value="admin">أدمن</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="addNewCommand()" style="width: 100%;">
+                <i class="fas fa-save"></i>
+                إضافة الأمر
+            </button>
         </div>
     </div>
-    
+
     <script>
-        // Global State
-        let botConnected = false;
-        let currentSection = 'overview';
+        // ==================== DATA & STATE ====================
+        let botData = {
+            token: '',
+            name: 'ROX Bot',
+            avatar: null,
+            id: null,
+            guilds: 0,
+            users: 0,
+            uptime: 0
+        };
+        
         let commands = [
-            { name: 'ban', desc: 'حظر عضو من السيرفر', alias: 'b', category: 'mod', enabled: true },
-            { name: 'kick', desc: 'طرد عضو من السيرفر', alias: 'k', category: 'mod', enabled: true },
-            { name: 'timeout', desc: 'تقييد عضو مؤقتاً', alias: 'mute', category: 'mod', enabled: true },
-            { name: 'clear', desc: 'مسح الرسائل', alias: 'purge', category: 'mod', enabled: true },
-            { name: 'lock', desc: 'قفل القناة', alias: 'l', category: 'admin', enabled: true },
-            { name: 'unlock', desc: 'فتح القناة', alias: 'ul', category: 'admin', enabled: true },
-            { name: 'giveaway', desc: 'إنشاء مسابقة', alias: 'gw', category: 'general', enabled: true },
-            { name: 'top', desc: 'عرض توب الأعضاء', alias: 't', category: 'general', enabled: true },
-            { name: 'voice', desc: 'إعدادات الروم الصوتي', alias: 'vc', category: 'general', enabled: true },
-            { name: 'bc', desc: 'إذاعة للكل', alias: 'broadcast', category: 'admin', enabled: true }
+            { name: 'ban', desc: 'حظر عضو من السيرفر', shortcut: '/ban', perms: 'admin', active: true },
+            { name: 'kick', desc: 'طرد عضو من السيرفر', shortcut: '/kick', perms: 'mod', active: true },
+            { name: 'mute', desc: 'كتم عضو مؤقتاً', shortcut: '/mute', perms: 'mod', active: true },
+            { name: 'clear', desc: 'مسح الرسائل', shortcut: '/clear', perms: 'mod', active: true },
+            { name: 'giveaway', desc: 'إنشاء Giveaway', shortcut: '/gw', perms: 'admin', active: true },
+            { name: 'top', desc: 'عرض توب الأعضاء', shortcut: '/top', perms: 'everyone', active: true },
+            { name: 'lock', desc: 'قفل الروم', shortcut: '/lock', perms: 'mod', active: true },
+            { name: 'unlock', desc: 'فتح الروم', shortcut: '/unlock', perms: 'mod', active: true }
         ];
         
-        let shortcuts = {};
+        let logs = [
+            { type: 'success', title: 'تم تشغيل البوت', desc: 'البوت يعمل بنجاح على 5 سيرفرات', time: 'منذ دقيقة' },
+            { type: 'info', title: 'أمر جديد', desc: 'تم إضافة أمر ban من قبل المستخدم', time: 'منذ 5 دقائق' },
+            { type: 'error', title: 'خطأ في الاتصال', desc: 'فشل الاتصال بقاعدة البيانات', time: 'منذ ساعة' }
+        ];
         
-        // Initialize Particles
-        function createParticles() {
-            const container = document.getElementById('particles');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-                container.appendChild(particle);
-            }
-        }
-        createParticles();
-        
-        // Connect Bot Function
-        async function connectBot() {
-            const token = document.getElementById('botToken').value;
+        // ==================== LOGIN SYSTEM ====================
+        function login() {
+            const token = document.getElementById('botToken').value.trim();
+            const btn = document.getElementById('loginBtn');
+            const error = document.getElementById('loginError');
+            
             if (!token) {
-                showToast('يرجى إدخال توكن البوت', 'error');
+                error.textContent = 'يرجى إدخال التوكن!';
+                error.classList.add('show');
                 return;
             }
             
-            const loader = document.getElementById('connectLoader');
-            const text = document.getElementById('connectText');
-            const btn = text.parentElement;
+            btn.classList.add('loading');
+            error.classList.remove('show');
             
-            loader.style.display = 'inline-block';
-            text.style.display = 'none';
-            btn.disabled = true;
-            
-            // Simulate API call
+            // محاكاة التحقق من التوكن
             setTimeout(() => {
-                // In real implementation, this would validate with Discord API
-                botConnected = true;
-                
-                document.getElementById('loginScreen').classList.add('hidden');
-                document.getElementById('dashboard').classList.add('active');
-                
-                // Update bot info
-                document.getElementById('botName').textContent = 'Rox Bot';
-                document.getElementById('botId').textContent = 'ID: ' + Math.random().toString(36).substr(2, 18);
-                
-                showToast('✅ تم الاتصال بالبوت بنجاح!', 'success');
-                startUptimeCounter();
-                loadCommands();
-                loadShortcuts();
-                
-                // Connect to real bot via WebSocket or API
-                initializeBotConnection(token);
-            }, 2000);
-        }
-        
-        // Initialize Real Bot Connection
-        function initializeBotConnection(token) {
-            // This would connect to your Node.js bot via WebSocket or REST API
-            console.log('Connecting with token:', token);
-            
-            // Example WebSocket connection
-            // const ws = new WebSocket('ws://localhost:3000');
-            // ws.onopen = () => ws.send(JSON.stringify({ type: 'auth', token }));
-            
-            // For demo, simulate real-time updates
-            setInterval(() => {
-                if (botConnected) {
-                    updateStats();
+                if (token.length > 20) {
+                    botData.token = token;
+                    botData.id = Math.random().toString(36).substr(2, 9);
+                    botData.guilds = Math.floor(Math.random() * 50) + 5;
+                    botData.users = Math.floor(Math.random() * 10000) + 1000;
+                    
+                    document.getElementById('loginScreen').classList.add('hidden');
+                    document.getElementById('appContainer').classList.add('active');
+                    
+                    initDashboard();
+                    showToast('success', 'تم تسجيل الدخول بنجاح!');
+                } else {
+                    error.textContent = 'التوكن غير صالح! يجب أن يكون أطول من 20 حرف';
+                    error.classList.add('show');
+                    btn.classList.remove('loading');
                 }
-            }, 5000);
+            }, 1500);
         }
         
-        // Update Stats
-        function updateStats() {
-            document.getElementById('guildsCount').textContent = Math.floor(Math.random() * 50) + 10;
-            document.getElementById('usersCount').textContent = Math.floor(Math.random() * 5000) + 1000;
-            document.getElementById('commandsUsed').textContent = Math.floor(Math.random() * 1000) + 500;
+        function initDashboard() {
+            document.getElementById('guildsCount').textContent = botData.guilds;
+            document.getElementById('usersCount').textContent = botData.users.toLocaleString();
+            
+            renderCommands();
+            renderShortcuts();
+            renderLogs();
+            updateEmbedPreview();
+            startUptimeCounter();
         }
         
-        // Uptime Counter
-        let uptimeSeconds = 0;
-        function startUptimeCounter() {
-            setInterval(() => {
-                uptimeSeconds++;
-                const hours = Math.floor(uptimeSeconds / 3600);
-                const minutes = Math.floor((uptimeSeconds % 3600) / 60);
-                document.getElementById('uptime').textContent = 
-                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-            }, 1000);
-        }
-        
-        // Navigation
-        function showSection(section) {
+        // ==================== NAVIGATION ====================
+        function showSection(sectionId) {
             // Hide all sections
-            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            
-            // Show selected
-            document.getElementById(section).classList.add('active');
-            event.target.closest('.nav-item').classList.add('active');
-            
-            // Update title
-            const titles = {
-                'overview': 'نظرة <span>عامة</span>',
-                'commands': 'إدارة <span>الأوامر</span>',
-                'shortcuts': 'الاختصارات <span>والاختصارات</span>',
-                'embeds': 'مصمم <span>الإيمبدات</span>',
-                'logs': 'سجلات <span>النظام</span>',
-                'settings': 'إعدادات <span>البوت</span>',
-                'ai': 'مساعد <span>Rox الذكي</span>',
-                'docs': 'توثيق <span>النظام</span>'
-            };
-            document.getElementById('pageTitle').innerHTML = titles[section];
-        }
-        
-        // Load Commands
-        function loadCommands() {
-            const list = document.getElementById('commandList');
-            list.innerHTML = '';
-            
-            commands.forEach((cmd, index) => {
-                const item = document.createElement('div');
-                item.className = 'command-item';
-                item.innerHTML = `
-                    <div class="command-info">
-                        <div class="command-icon">
-                            <i class="fas fa-terminal"></i>
-                        </div>
-                        <div class="command-details">
-                            <h4>/${cmd.name} <span style="color: var(--rox-text-muted); font-size: 12px;">(${cmd.category})</span></h4>
-                            <p>${cmd.desc}</p>
-                            ${cmd.alias ? `<span class="command-alias"><i class="fas fa-bolt"></i> ${cmd.alias}</span>` : ''}
-                        </div>
-                    </div>
-                    <div class="command-actions">
-                        <div class="toggle-switch ${cmd.enabled ? 'active' : ''}" onclick="toggleCommand(${index})"></div>
-                        <button class="btn-icon" onclick="editCommand(${index})"><i class="fas fa-edit"></i></button>
-                        <div class="menu-dots">
-                            <button class="dots-btn" onclick="toggleDropdown(this)">
-                                <i class="fas fa-ellipsis-v"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                <div class="dropdown-item" onclick="editCommand(${index})">
-                                    <i class="fas fa-edit"></i> تعديل
-                                </div>
-                                <div class="dropdown-item" onclick="duplicateCommand(${index})">
-                                    <i class="fas fa-copy"></i> نسخ
-                                </div>
-                                <div class="dropdown-item delete" onclick="deleteCommand(${index})">
-                                    <i class="fas fa-trash"></i> حذف
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                list.appendChild(item);
+            document.querySelectorAll('.content-section').forEach(sec => {
+                sec.classList.remove('active');
             });
             
-            document.getElementById('commandsBadge').textContent = commands.length;
-        }
-        
-        function toggleCommand(index) {
-            commands[index].enabled = !commands[index].enabled;
-            loadCommands();
-            showToast(commands[index].enabled ? '✅ تم تفعيل الأمر' : '⛔ تم تعطيل الأمر', 'info');
-        }
-        
-        function deleteCommand(index) {
-            if (confirm('هل أنت متأكد من حذف هذا الأمر؟')) {
-                commands.splice(index, 1);
-                loadCommands();
-                showToast('🗑️ تم حذف الأمر', 'success');
+            // Show target section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.nav-item').classList.add('active');
+            
+            // Update titles
+            const titles = {
+                dashboard: ['لوحة التحكم', 'نظرة عامة على أداء البوت'],
+                commands: ['إدارة الأوامر', 'تفعيل/تعطيل وتخصيص الأوامر'],
+                shortcuts: ['الاختصارات', 'إدارة الاختصارات المخصصة'],
+                embeds: ['مصمم الإيمبدات', 'تصميم وإرسال الإيمبدات'],
+                settings: ['إعدادات البوت', 'تغيير اسم وصورة البوت'],
+                logs: ['سجل الأحداث', 'متابعة جميع الأنشطة'],
+                ai: ['AI المساعد', 'مساعد ذكي للتحكم في البوت']
+            };
+            
+            document.getElementById('pageTitle').textContent = titles[sectionId][0];
+            document.getElementById('pageDesc').textContent = titles[sectionId][1];
+            
+            // Close sidebar on mobile
+            if (window.innerWidth <= 1024) {
+                document.getElementById('sidebar').classList.remove('open');
             }
         }
         
-        function editCommand(index) {
-            const cmd = commands[index];
-            document.getElementById('cmdName').value = cmd.name;
-            document.getElementById('cmdDesc').value = cmd.desc;
-            document.getElementById('cmdAlias').value = cmd.alias;
-            document.getElementById('cmdCategory').value = cmd.category;
-            document.getElementById('commandModal').dataset.editIndex = index;
-            openModal('commandModal');
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+        
+        // ==================== COMMANDS MANAGEMENT ====================
+        function renderCommands() {
+            const container = document.getElementById('commandsList');
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            
+            container.innerHTML = commands
+                .filter(cmd => cmd.name.toLowerCase().includes(search) || cmd.desc.includes(search))
+                .map(cmd => `
+                    <div class="shortcut-item" onclick="toggleCommand('${cmd.name}')">
+                        <div class="shortcut-icon">
+                            <i class="fas fa-terminal"></i>
+                        </div>
+                        <div class="shortcut-info">
+                            <h4>/${cmd.name}</h4>
+                            <p>${cmd.desc}</p>
+                            <div class="command-tags">
+                                <span class="tag ${cmd.perms}">${getPermText(cmd.perms)}</span>
+                                <span class="tag">${cmd.shortcut}</span>
+                            </div>
+                        </div>
+                        <div class="shortcut-toggle ${cmd.active ? 'active' : ''}"></div>
+                    </div>
+                `).join('');
+        }
+        
+        function getPermText(perm) {
+            const perms = { everyone: 'الجميع', mod: 'مشرف', admin: 'أدمن' };
+            return perms[perm] || perm;
+        }
+        
+        function toggleCommand(name) {
+            const cmd = commands.find(c => c.name === name);
+            if (cmd) {
+                cmd.active = !cmd.active;
+                renderCommands();
+                renderShortcuts();
+                addLog(cmd.active ? 'success' : 'info', `تم ${cmd.active ? 'تفعيل' : 'تعطيل'} الأمر`, `الأمر /${cmd.name} ${cmd.active ? 'مفعل' : 'معطل'} الآن`);
+                showToast('success', `تم ${cmd.active ? 'تفعيل' : 'تعطيل'} الأمر /${cmd.name}`);
+            }
         }
         
         function openAddCommandModal() {
-            document.getElementById('cmdName').value = '';
-            document.getElementById('cmdDesc').value = '';
-            document.getElementById('cmdAlias').value = '';
-            delete document.getElementById('commandModal').dataset.editIndex;
-            openModal('commandModal');
+            document.getElementById('addCommandModal').classList.add('active');
         }
         
-        function saveCommand() {
-            const name = document.getElementById('cmdName').value;
-            const desc = document.getElementById('cmdDesc').value;
-            const alias = document.getElementById('cmdAlias').value;
-            const category = document.getElementById('cmdCategory').value;
-            const editIndex = document.getElementById('commandModal').dataset.editIndex;
+        function closeModal() {
+            document.getElementById('addCommandModal').classList.remove('active');
+        }
+        
+        function addNewCommand() {
+            const name = document.getElementById('newCmdName').value;
+            const desc = document.getElementById('newCmdDesc').value;
+            const shortcut = document.getElementById('newCmdShortcut').value;
+            const perms = document.getElementById('newCmdPerms').value;
             
             if (!name || !desc) {
-                showToast('يرجى ملء جميع الحقول المطلوبة', 'error');
+                showToast('error', 'يرجى ملء جميع الحقول المطلوبة!');
                 return;
             }
             
-            if (editIndex !== undefined) {
-                commands[editIndex] = { name, desc, alias, category, enabled: true };
-                showToast('✏️ تم تعديل الأمر', 'success');
-            } else {
-                commands.push({ name, desc, alias, category, enabled: true });
-                showToast('✅ تم إضافة الأمر الجديد', 'success');
-            }
-            
-            closeModal('commandModal');
-            loadCommands();
-        }
-        
-        // Shortcuts
-        function loadShortcuts() {
-            const container = document.getElementById('shortcutsContainer');
-            container.innerHTML = '';
-            
-            commands.forEach(cmd => {
-                if (!cmd.alias) return;
-                
-                const div = document.createElement('div');
-                div.style.cssText = 'background: var(--rox-darker); padding: 15px; border-radius: 10px; border: 1px solid var(--rox-border); min-width: 200px;';
-                div.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                        <strong>/${cmd.name}</strong>
-                        <span style="background: var(--rox-primary); padding: 3px 10px; border-radius: 5px; font-size: 12px;">${cmd.alias}</span>
-                    </div>
-                    <input type="text" placeholder="اختصار جديد..." value="${cmd.alias}" 
-                           onchange="updateShortcut('${cmd.name}', this.value)"
-                           style="width: 100%; background: var(--rox-card); border: 1px solid var(--rox-border); border-radius: 5px; padding: 8px; color: white; font-family: inherit;">
-                `;
-                container.appendChild(div);
+            commands.push({
+                name: name.toLowerCase(),
+                desc: desc,
+                shortcut: shortcut || `/${name}`,
+                perms: perms,
+                active: true
             });
+            
+            renderCommands();
+            renderShortcuts();
+            closeModal();
+            addLog('success', 'أمر جديد', `تم إضافة الأمر /${name}`);
+            showToast('success', 'تم إضافة الأمر بنجاح!');
+            
+            // Clear inputs
+            document.getElementById('newCmdName').value = '';
+            document.getElementById('newCmdDesc').value = '';
+            document.getElementById('newCmdShortcut').value = '';
         }
         
-        function updateShortcut(cmdName, newAlias) {
-            const cmd = commands.find(c => c.name === cmdName);
-            if (cmd) {
-                cmd.alias = newAlias;
-                showToast('✅ تم تحديث الاختصار', 'success');
-            }
+        function searchCommands() {
+            renderCommands();
         }
         
-        // Embed Builder
+        // ==================== SHORTCUTS ====================
+        function renderShortcuts() {
+            const activeCmds = commands.filter(c => c.active);
+            
+            // Dashboard shortcuts
+            document.getElementById('dashboardShortcuts').innerHTML = activeCmds.slice(0, 4).map(cmd => `
+                <div class="shortcut-item" onclick="executeShortcut('${cmd.name}')">
+                    <div class="shortcut-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="shortcut-info">
+                        <h4>${cmd.shortcut}</h4>
+                        <p>${cmd.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Shortcuts page
+            document.getElementById('shortcutsList').innerHTML = commands.map(cmd => `
+                <div class="shortcut-item" onclick="toggleShortcut('${cmd.name}')">
+                    <div class="shortcut-icon" style="${cmd.active ? 'background: var(--gradient-1);' : 'background: var(--border);'}">
+                        <i class="fas fa-${cmd.active ? 'check' : 'times'}"></i>
+                    </div>
+                    <div class="shortcut-info">
+                        <h4>${cmd.name}</h4>
+                        <p>${cmd.desc}</p>
+                        <div class="command-tags">
+                            <span class="tag">${cmd.shortcut}</span>
+                        </div>
+                    </div>
+                    <div class="shortcut-toggle ${cmd.active ? 'active' : ''}"></div>
+                </div>
+            `).join('');
+        }
+        
+        function toggleShortcut(name) {
+            toggleCommand(name);
+        }
+        
+        function executeShortcut(cmdName) {
+            showToast('info', `تنفيذ: /${cmdName}`);
+            addLog('info', 'تنفيذ اختصار', `تم تنفيذ الأمر /${cmdName}`);
+        }
+        
+        // ==================== EMBED BUILDER ====================
         function updateEmbedPreview() {
             const title = document.getElementById('embedTitle').value || 'عنوان الإيمبد';
-            const desc = document.getElementById('embedDescription').value || 'هذا نص الوصف سيظهر هنا...';
-            const color = document.getElementById('embedColor').value || '#5865F2';
+            const desc = document.getElementById('embedDesc').value || 'هذا نص تجريبي للإيمبد...';
+            const color = document.getElementById('embedColor').value;
+            const thumbnail = document.getElementById('embedThumbnail').value;
+            const image = document.getElementById('embedImage').value;
             
-            document.getElementById('previewTitle').textContent = title;
-            document.getElementById('previewDescription').textContent = desc;
-            document.getElementById('embedPreview').style.borderRightColor = color;
+            const preview = document.getElementById('embedPreview');
+            preview.style.borderLeftColor = color;
+            preview.innerHTML = `
+                <div class="author">
+                    <i class="fas fa-robot"></i>
+                    <span>${botData.name}</span>
+                </div>
+                ${thumbnail ? `<img src="${thumbnail}" style="width: 50px; height: 50px; border-radius: 50%; float: left; margin-left: 10px;">` : ''}
+                <div class="title" style="color: ${color}">${title}</div>
+                <div class="description">${desc.replace(/\n/g, '<br>')}</div>
+                ${image ? `<img src="${image}" style="max-width: 100%; border-radius: 4px; margin-top: 10px;">` : ''}
+                <div class="footer">${new Date().toLocaleTimeString()}</div>
+            `;
         }
         
-        function saveEmbedTemplate() {
-            showToast('💾 تم حفظ قالب الإيمبد', 'success');
+        function sendEmbed() {
+            const title = document.getElementById('embedTitle').value;
+            if (!title) {
+                showToast('error', 'يرجى إدخال عنوان للإيمبد!');
+                return;
+            }
+            showToast('success', 'تم إرسال الإيمبد بنجاح!');
+            addLog('success', 'إرسال إيمبد', `تم إرسال إيمبد: ${title}`);
         }
         
-        // AI Assistant
-        async function sendAI() {
+        // ==================== SETTINGS ====================
+        function toggleSetting(el) {
+            el.classList.toggle('active');
+            const setting = el.id.replace('Toggle', '');
+            const isActive = el.classList.contains('active');
+            showToast('info', `تم ${isActive ? 'تفعيل' : 'تعطيل'} ${setting}`);
+        }
+        
+        function saveBotInfo() {
+            const newName = document.getElementById('botNameInput').value;
+            if (newName) {
+                botData.name = newName;
+                document.getElementById('botName').textContent = newName;
+                showToast('success', 'تم حفظ التغييرات بنجاح!');
+                addLog('success', 'تحديث البوت', `تم تغيير اسم البوت إلى ${newName}`);
+            }
+        }
+        
+        function changeAvatar() {
+            showToast('info', 'اختيار صورة جديدة...');
+        }
+        
+        function clearAllData() {
+            if (confirm('هل أنت متأكد من مسح جميع البيانات؟')) {
+                commands = [];
+                logs = [];
+                renderCommands();
+                renderLogs();
+                showToast('success', 'تم مسح جميع البيانات!');
+            }
+        }
+        
+        function logout() {
+            location.reload();
+        }
+        
+        // ==================== LOGS ====================
+        function renderLogs() {
+            const container = document.getElementById('logsContainer');
+            container.innerHTML = logs.map(log => `
+                <div class="log-item">
+                    <div class="log-icon ${log.type}">
+                        <i class="fas fa-${log.type === 'success' ? 'check' : log.type === 'error' ? 'times' : 'info'}"></i>
+                    </div>
+                    <div class="log-content">
+                        <h4>${log.title}</h4>
+                        <p>${log.desc}</p>
+                    </div>
+                    <div class="log-time">${log.time}</div>
+                </div>
+            `).join('');
+        }
+        
+        function addLog(type, title, desc) {
+            logs.unshift({
+                type: type,
+                title: title,
+                desc: desc,
+                time: 'الآن'
+            });
+            if (logs.length > 50) logs.pop();
+            renderLogs();
+        }
+        
+        function clearLogs() {
+            logs = [];
+            renderLogs();
+            showToast('success', 'تم مسح السجل!');
+        }
+        
+        // ==================== AI CHAT ====================
+        function sendAIMessage() {
             const input = document.getElementById('aiInput');
             const message = input.value.trim();
             if (!message) return;
             
             // Add user message
-            addAIMessage(message, true);
+            addMessage(message, 'user');
             input.value = '';
             
-            // Simulate AI response (in real implementation, call OpenAI API)
+            // Simulate AI response
             setTimeout(() => {
-                const responses = [
-                    'يمكنك إنشاء أمر جديد من قسم "الأوامر" ثم الضغط على "أمر جديد"',
-                    'لتغيير صورة البوت، اذهب إلى الإعدادات ثم ارفع الصورة الجديدة',
-                    'يمكنك استخدام الاختصارات لتسريع استخدام الأوامر. مثلاً: /b بدلاً من /ban',
-                    'لإنشاء إيمبد احترافي، استخدم مصمم الإيمبدات في القسم المخصص',
-                    'هل تحتاج مساعدة في كود معين؟ يمكنني مساعدتك في JavaScript و Discord.js'
-                ];
-                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-                addAIMessage(randomResponse, false);
+                const response = generateAIResponse(message);
+                addMessage(response, 'bot');
             }, 1000);
         }
         
-        function addAIMessage(text, isUser) {
-            const chat = document.getElementById('aiChat');
-            const div = document.createElement('div');
-            div.className = 'ai-message';
-            div.innerHTML = isUser ? `
-                <div class="ai-content user">${text}</div>
-            ` : `
-                <div class="ai-avatar"><i class="fas fa-robot"></i></div>
-                <div class="ai-content">${text}</div>
-            `;
-            chat.appendChild(div);
-            chat.scrollTop = chat.scrollHeight;
+        function handleAIKey(e) {
+            if (e.key === 'Enter') sendAIMessage();
         }
         
-        // Quick Actions
-        function quickAction(action) {
-            const actions = {
-                'restart': 'جاري إعادة تشغيل البوت...',
-                'broadcast': 'فتح نموذج الإذاعة...',
-                'status': 'فتح إعدادات الحالة...',
-                'clear': 'جاري مسح الكاش...',
-                'backup': 'جاري إنشاء نسخة احتياطية...',
-                'update': 'جاري التحديث...'
-            };
-            showToast(actions[action], 'info');
-            
-            // Add to console
-            addConsoleLine(`[ACTION] ${actions[action]}`, 'info');
+        function addMessage(text, sender) {
+            const container = document.getElementById('aiMessages');
+            const msg = document.createElement('div');
+            msg.className = `ai-message ${sender}`;
+            msg.innerHTML = text;
+            container.appendChild(msg);
+            container.scrollTop = container.scrollHeight;
         }
         
-        // Settings
-        function previewAvatar() {
-            const input = document.getElementById('avatarInput');
-            const preview = document.getElementById('avatarPreview');
-            const icon = document.getElementById('avatarIcon');
+        function generateAIResponse(input) {
+            const lower = input.toLowerCase();
             
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                    icon.style.display = 'none';
-                };
-                reader.readAsDataURL(input.files[0]);
+            if (lower.includes('أمر') || lower.includes('command')) {
+                return 'لإضافة أمر جديد، اذهب إلى قسم "الأوامر" واضغط على "أمر جديد". يمكنك تحديد الاسم، الوصف، والاختصار.';
             }
-        }
-        
-        function saveBotSettings() {
-            const name = document.getElementById('botNameInput').value;
-            const status = document.getElementById('botStatus').value;
-            const activityType = document.getElementById('activityType').value;
-            const activityText = document.getElementById('activityText').value;
-            
-            // Update UI
-            if (name) {
-                document.getElementById('botName').textContent = name;
+            if (lower.includes('إيمبد') || lower.includes('embed')) {
+                return 'لإنشاء إيمبد احترافي، استخدم مصمم الإيمبدات في القسم المخصص. يمكنك تغيير اللون، إضافة صور، ومعاينة النتيجة مباشرة.';
+            }
+            if (lower.includes('اختصار') || lower.includes('shortcut')) {
+                return 'الاختصارات تسمح بتنفيذ الأوامر بسرعة. يمكنك تفعيل/تعطيل أي أمر من قسم "الاختصارات".';
+            }
+            if (lower.includes('مساعدة') || lower.includes('help')) {
+                return 'أنا هنا للمساعدة! يمكنني مساعدتك في:<br>• إنشاء وتخصيص الأوامر<br>• تصميم الإيمبدات<br>• إدارة إعدادات البوت<br>• شرح الميزات المتقدمة<br><br>ما الذي تريد معرفته؟';
             }
             
-            showToast('✅ تم حفظ إعدادات البوت', 'success');
-            addConsoleLine('[SETTINGS] Settings updated successfully', 'success');
+            return 'فهمت! يمكنك استخدام لوحة التحكم لتنفيذ ما تريد. هل تحتاج مساعدة في شيء محدد؟';
         }
         
-        // Utility Functions
-        function openModal(id) {
-            document.getElementById(id).classList.add('active');
-        }
-        
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
-        }
-        
-        function toggleDropdown(btn) {
-            const menu = btn.nextElementSibling;
-            document.querySelectorAll('.dropdown-menu').forEach(m => {
-                if (m !== menu) m.classList.remove('show');
-            });
-            menu.classList.toggle('show');
-        }
-        
-        function showToast(message, type = 'info') {
+        // ==================== UTILITIES ====================
+        function showToast(type, message) {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
-            
-            const icons = {
-                success: 'check-circle',
-                error: 'exclamation-circle',
-                info: 'info-circle'
-            };
-            
             toast.innerHTML = `
-                <div class="toast-icon"><i class="fas fa-${icons[type]}"></i></div>
-                <div>${message}</div>
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
             `;
-            
             container.appendChild(toast);
             
             setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateX(-100%)';
-                setTimeout(() => toast.remove(), 300);
+                toast.remove();
             }, 3000);
         }
         
-        function addConsoleLine(text, type = 'info') {
-            const console = document.getElementById('console');
-            const time = new Date().toLocaleTimeString('en-US', { hour12: false });
-            const types = {
-                info: 'console-info',
-                success: 'console-success',
-                error: 'console-error',
-                warn: 'console-warn'
-            };
+        function startUptimeCounter() {
+            let days = 0;
+            setInterval(() => {
+                days++;
+                document.getElementById('uptime').textContent = days + 'd';
+            }, 86400000); // يوم كامل
             
-            const line = document.createElement('div');
-            line.className = 'console-line';
-            line.innerHTML = `
-                <span class="console-time">[${time}]</span>
-                <span class="${types[type]}">[${type.toUpperCase()}]</span>
-                <span>${text}</span>
-            `;
-            
-            console.appendChild(line);
-            console.scrollTop = console.scrollHeight;
+            // محاكاة الوقت الفعلي
+            const start = Date.now();
+            setInterval(() => {
+                const elapsed = Math.floor((Date.now() - start) / 1000);
+                const d = Math.floor(elapsed / 86400);
+                const h = Math.floor((elapsed % 86400) / 3600);
+                const m = Math.floor((elapsed % 3600) / 60);
+                document.getElementById('uptime').textContent = d > 0 ? `${d}d ${h}h` : `${h}h ${m}m`;
+            }, 60000);
         }
         
-        function searchCommands() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const items = document.querySelectorAll('.command-item');
-            
-            items.forEach(item => {
-                const text = item.textContent.toLowerCase();
-                item.style.display = text.includes(query) ? 'flex' : 'none';
-            });
+        function refreshData() {
+            showLoading();
+            setTimeout(() => {
+                botData.guilds = Math.floor(Math.random() * 50) + 5;
+                botData.users = Math.floor(Math.random() * 10000) + 1000;
+                document.getElementById('guildsCount').textContent = botData.guilds;
+                document.getElementById('usersCount').textContent = botData.users.toLocaleString();
+                hideLoading();
+                showToast('success', 'تم تحديث البيانات!');
+            }, 1000);
         }
         
-        function clearLogs() {
-            document.getElementById('systemLogs').innerHTML = '';
-            showToast('🗑️ تم مسح السجلات', 'success');
+        function showLoading() {
+            document.getElementById('loadingOverlay').classList.add('active');
         }
         
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.menu-dots')) {
-                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.remove('active');
+        }
+        
+        function broadcastMessage() {
+            const msg = prompt('أدخل رسالة الإذاعة:');
+            if (msg) {
+                showToast('success', 'تم إرسال الإذاعة!');
+                addLog('success', 'إذاعة عامة', `تم إرسال: ${msg.substring(0, 50)}...`);
             }
-        });
+        }
         
-        // Keyboard shortcuts
+        function restartBot() {
+            if (confirm('هل تريد إعادة تشغيل البوت؟')) {
+                showLoading();
+                setTimeout(() => {
+                    hideLoading();
+                    showToast('success', 'تم إعادة تشغيل البوت!');
+                    addLog('success', 'إعادة تشغيل', 'تم إعادة تشغيل البوت بنجاح');
+                }, 2000);
+            }
+        }
+        
+        function showNotifications() {
+            showToast('info', 'لديك 3 إشعارات جديدة');
+            document.getElementById('notifBadge').style.display = 'none';
+        }
+        
+        // ==================== KEYBOARD SHORTCUTS ====================
         document.addEventListener('keydown', (e) => {
+            // Ctrl + K للبحث
             if (e.ctrlKey && e.key === 'k') {
                 e.preventDefault();
                 document.getElementById('searchInput').focus();
             }
+            
+            // Escape لإغلاق النوافذ
+            if (e.key === 'Escape') {
+                closeModal();
+            }
         });
+        
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check for saved token
+            const savedToken = localStorage.getItem('rox_bot_token');
+            if (savedToken) {
+                document.getElementById('botToken').value = savedToken;
+            }
+        });
+        
+        // Save token on login
+        const originalLogin = login;
+        login = function() {
+            const token = document.getElementById('botToken').value;
+            if (token.length > 20) {
+                localStorage.setItem('rox_bot_token', token);
+            }
+            originalLogin();
+        };
     </script>
 </body>
 </html>
